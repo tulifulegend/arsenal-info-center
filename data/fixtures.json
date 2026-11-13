@@ -1,0 +1,23 @@
+{
+  "available": false,
+  "stale": false,
+  "fetchedAt": null,
+  "attemptedAt": "2026-11-13T20:53:26+08:00",
+  "sourceUpdatedAt": null,
+  "sourceTimeLabel": "接口未提供单独的发布时间",
+  "message": "还没有配置 API_FOOTBALL_KEY。新闻和播客不受影响。密钥只会放在 GitHub Actions 的密钥里，不会写进网页。",
+  "scoreDisclaimer": "比分来自最近一次成功更新，不是实时比分。",
+  "coverage": {
+    "season": null,
+    "seasonLabel": null,
+    "checked": false,
+    "complete": false,
+    "competitions": [],
+    "missing": [],
+    "warning": null
+  },
+  "nextMatch": null,
+  "upcoming": [],
+  "results": [],
+  "matches": []
+}
