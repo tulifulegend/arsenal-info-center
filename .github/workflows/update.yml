@@ -1,0 +1,86 @@
+name: Update site data and deploy
+
+on:
+  schedule:
+    # Every 30 minutes. GitHub may start the job later than the clock time.
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+    inputs:
+      force_fixtures:
+        description: "立即拉取赛程（仍受每日免费额度保护）"
+        type: boolean
+        default: false
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arsenal-info-center-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      actions: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Restore last good data
+        id: data-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: data
+          key: arsenal-data-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            arsenal-data-
+
+      - name: Unit tests
+        run: python3 -m unittest tests.test_update -v
+
+      - name: Update feeds and fixtures
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          FORCE_FIXTURES: ${{ github.event_name == 'workflow_dispatch' && inputs.force_fixtures && 'true' || 'false' }}
+        run: python3 scripts/update_data.py
+
+      - name: Check generated data
+        run: python3 scripts/verify_data.py data
+
+      - name: Build site
+        run: python3 scripts/build_dist.py
+
+      - name: Upload GitHub Pages artifact
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+      - name: Save data cache
+        if: success()
+        uses: actions/cache/save@v4
+        with:
+          path: data
+          key: ${{ steps.data-cache.outputs.cache-primary-key }}
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>阿森纳足球信息中心</title>
+  <meta name="description" content="阿森纳新闻、一线队赛程和 Arsecast 播客。时间均为北京时间。">
+  <meta name="theme-color" content="#140c0c">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">跳到内容</a>
+  <header class="mast">
+    <div class="mast-inner">
+      <p class="eyebrow">Arsenal</p>
+      <h1>阿森纳足球信息中心</h1>
+      <p class="sub">新闻、一线队赛程、Arsecast 播客。时间都写北京时间。</p>
+    </div>
+  </header>
+  <div id="banner" class="banner" hidden></div>
+  <div id="snapshot-note" class="banner banner-info" hidden></div>
+  <nav class="tabs" aria-label="栏目">
+    <button type="button" id="tab-news" data-tab="news">新闻</button>
+    <button type="button" id="tab-fixtures" data-tab="fixtures">赛程</button>
+    <button type="button" id="tab-podcasts" data-tab="podcasts">播客</button>
+    <button type="button" id="tab-about" data-tab="about">说明</button>
+  </nav>
+  <main id="main" class="wrap">
+    <section id="panel-news">
+      <div class="section-head">
+        <h2>新闻</h2>
+        <p>只收录标题、短摘要和原文链接，不转载全文。标题保持原文，免得和来源对不上。</p>
+      </div>
+      <div class="toolbar">
+        <label class="search" for="search">搜索
+          <input id="search" type="search" placeholder="输入标题或摘要里的词" autocomplete="off" enterkeyhint="search">
+        </label>
+        <div class="chips" role="group" aria-label="按来源筛选">
+          <button type="button" data-source="all" aria-pressed="true">全部</button>
+          <button type="button" data-source="arseblog" aria-pressed="false">Arseblog</button>
+          <button type="button" data-source="guardian" aria-pressed="false">卫报</button>
+        </div>
+        <button type="button" id="fav-only" aria-pressed="false">只看收藏</button>
+      </div>
+      <p id="fav-note" class="fav-note" hidden></p>
+      <p id="news-count" class="count"></p>
+      <div id="news-list" class="grid"></div>
+    </section>
+
+    <section id="panel-fixtures" hidden>
+      <div class="section-head">
+        <h2>一线队赛程</h2>
+        <p>男足一线队的下一场和最近赛果，写明赛事名称。这里的比分来自最近一次成功更新，不是实时比分，也不是直播。</p>
+      </div>
+      <div id="fixtures-root"></div>
+    </section>
+
+    <section id="panel-podcasts" hidden>
+      <div class="section-head">
+        <h2>播客</h2>
+        <p>Arsecast 正集、Extra，以及订阅源里如果有的女足节目。点进去是官方页面。这里没有 Patreon 付费内容。</p>
+      </div>
+      <div id="podcasts-root"></div>
+    </section>
+
+    <section id="panel-about" hidden>
+      <div class="section-head">
+        <h2>说明</h2>
+        <p>这是一个公开网页，不用登录。收藏只存在你这台设备的浏览器里，换浏览器或清掉网站数据就会消失。</p>
+      </div>
+      <div id="status-root"></div>
+      <div class="about-card">
+        <h3>数据从哪来</h3>
+        <ul>
+          <li>新闻：<a href="https://arseblog.com/">Arseblog</a> 和 <a href="https://www.theguardian.com/football/arsenal">卫报足球 · 阿森纳</a> 的订阅源。只用标题、短摘要和链接，供个人、非商业查看。</li>
+          <li>播客：<a href="https://shows.acast.com/arseblog">Arsecast</a>。只保留最近几期正集、Extra 和女足节目的标题、简介和官方链接。</li>
+          <li>赛程：API-Football 免费接口里的男足一线队。女足赛程不在这一版。维护者需要在 GitHub 里配置密钥后，赛程才会出现。密钥不会写在这个网页里。</li>
+        </ul>
+        <p>如果某次更新失败，页面继续显示上次成功拿到的内容，并写明仍在显示缓存。失败的结果不会覆盖已经成功的数据。</p>
+        <p>如果免费接口没有给全本赛季或杯赛，页面会直接说覆盖不完整，不会自己补场次，也不会改去付费套餐。</p>
+      </div>
+      <div class="about-card">
+        <h3>自动更新和快照</h3>
+        <p>自动更新只发生在线上网站 <a href="https://tulifulegend.github.io/arsenal-info-center/">tulifulegend.github.io/arsenal-info-center</a>。新闻和播客大约每 30 到 60 分钟更新一次。赛程平时一天少数几次，比赛前后会勤一些。GitHub 的定时任务偶尔会晚一点。</p>
+        <p>下面的快照是单个 HTML 文件，里面装着生成当时的数据。用浏览器打开它即可。它不会继续变新，也不会在你的电脑上请求第三方接口。把仓库里的 index.html 用 file:// 直接打开，读不到旁边的数据文件，也不能代替这个网站。</p>
+        <p class="actions">
+          <a class="button" href="snapshot.html" download="arsenal-info-center-snapshot.html">下载当前快照</a>
+          <a class="button button-quiet" href="snapshot.html">打开快照</a>
+        </p>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap footer">
+    <p>来源：Arseblog、The Guardian 足球（阿森纳）RSS、Arsecast、API-Football。页面只展示标题、短摘要、赛程和链接。</p>
+    <p>卫报内容仅供个人、非商业查看。请到原文阅读全文。赛程不是实时比分。</p>
+    <p class="actions">
+      <a class="button" href="snapshot.html" download="arsenal-info-center-snapshot.html">下载当前快照</a>
+      <a class="button button-quiet" href="snapshot.html">打开快照</a>
+    </p>
+  </footer>
+  <noscript>
+    <p class="noscript">需要开启 JavaScript 才能显示新闻、赛程和播客。页面不会要求登录，也不会从浏览器直接请求第三方接口。</p>
+  </noscript>
+  <!--snapshot-->
+  <script>window.__AIC_VERSION__="";</script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+{
+  "generatedAt": "2026-11-13T20:53:26+08:00",
+  "timezone": "Asia/Shanghai",
+  "banner": null,
+  "bannerLevel": null,
+  "requestsToday": 0,
+  "requestCap": 80,
+  "providerDailyCap": 100,
+  "fixturesMode": "unavailable",
+  "news": {
+    "label": "新闻",
+    "stale": false,
+    "hasData": true,
+    "fetchedAt": "2026-11-13T20:53:26+08:00",
+    "sourceUpdatedAt": "2026-11-13T20:53:29+08:00",
+    "sourceTimeLabel": "订阅源里最新内容的时间",
+    "message": "Arseblog已更新。卫报已更新。",
+    "sources": [
+      {
+        "id": "arseblog",
+        "name": "Arseblog",
+        "ok": true,
+        "stale": false,
+        "keptCache": false,
+        "count": 15,
+        "fetchedAt": "2026-11-13T20:53:26+08:00",
+        "sourceUpdatedAt": "2026-11-13T15:34:18+08:00",
+        "error": null
+      },
+      {
+        "id": "guardian",
+        "name": "卫报",
+        "ok": true,
+        "stale": false,
+        "keptCache": false,
+        "count": 15,
+        "fetchedAt": "2026-11-13T20:53:26+08:00",
+        "sourceUpdatedAt": "2026-11-13T20:53:29+08:00",
+        "error": null
+      }
+    ]
+  },
+  "fixtures": {
+    "label": "赛程",
+    "stale": false,
+    "hasData": false,
+    "available": false,
+    "fetchedAt": null,
+    "sourceUpdatedAt": null,
+    "sourceTimeLabel": "接口未提供单独的发布时间",
+    "message": "还没有配置 API_FOOTBALL_KEY。新闻和播客不受影响。密钥只会放在 GitHub Actions 的密钥里，不会写进网页。",
+    "coverageWarning": null,
+    "coverage": {
+      "season": null,
+      "seasonLabel": null,
+      "checked": false,
+      "complete": false,
+      "competitions": [],
+      "missing": [],
+      "warning": null
+    },
+    "quotaHeld": false,
+    "scheduleNote": null,
+    "scoreDisclaimer": "比分来自最近一次成功更新，不是实时比分。"
+  },
+  "podcasts": {
+    "label": "播客",
+    "stale": false,
+    "hasData": true,
+    "fetchedAt": "2026-11-13T20:53:26+08:00",
+    "sourceUpdatedAt": "2026-11-10T17:16:02+08:00",
+    "sourceTimeLabel": "订阅源里最新节目的时间",
+    "message": "Arsecast 已更新。"
+  }
+}
